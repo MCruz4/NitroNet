@@ -1,0 +1,223 @@
+
+<head>
+<title>Contactanos</title>
+</head>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Page Top section -->
+	<section class="page-top-section set-bg" data-setbg="img/page-top-bg/1.jpg">
+		<div class="container">
+			<h2>About Us</h2>
+		</div>
+	</section>
+	<!-- Page Top section end -->
+
+
+	<!-- About Intro section -->
+	<section class="about-intro-section spad">
+		<div class="container">
+			<div class="section-title">
+				<p>The only ones</p>
+				<h2>We Generate Trust</h2>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="about-intro-pic">
+						<img src="img/about-intro.jpg" alt="">
+						<a href="https://www.youtube.com/watch?v=4T31zr0fsvs" class="video-play video-popup"><i class="fa fa-play"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-6 about-intro-text">
+					<p>Phasellus vehicula tempus orci vel consequat. Nullam lorem sem, viverra a rutrum sed, gravida mattis magna. Suspendisse vitae commodo quam. Quisque a enim et ante vulputate finibus nec laoreet ipsum. Etiam lobortis erat vel ullamcorper tristique. Morbi pellentesque orci augue, quis finibus justo accumsan nec. Donec imperdiet sodales lectus sed consectetur. Mauris dignissim.Morbi pellentesque orci augue, quis finibus justo accumsan nec. Donec imperdiet sodales lectus sed consectetur. Mauris dignissim</p>
+					<div class="site-btn sb-c3">Read more</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- About Intro section end -->
+
+
+	
+	<!-- What section -->
+	<section class="what-section spad set-bg" data-setbg="img/what-bg.jpg">
+		<div class="container">
+			<div class="section-title text-white">
+				<p>The only ones</p>
+				<h2>What we do</h2>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="what-card">
+						<img src="img/what/1.jpg" alt="">
+						<div class="wc-text">
+							<h5>Web Hosting</h5>
+							<p>Phasellus vehicula tempus orci vel consequat. Nullam lorem sem, viverra a rutrum sed, gravida mattis magna. Suspendisse vitae commodo.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="what-card">
+						<img src="img/what/2.jpg" alt="">
+						<div class="wc-text">
+							<h5>The Business</h5>
+							<p>Phasellus vehicula tempus orci vel consequat. Nullam lorem sem, viverra a rutrum sed, gravida mattis magna. Suspendisse vitae commodo.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="what-card">
+						<img src="img/what/3.jpg" alt="">
+						<div class="wc-text">
+							<h5>The Sollution</h5>
+							<p>Phasellus vehicula tempus orci vel consequat. Nullam lorem sem, viverra a rutrum sed, gravida mattis magna. Suspendisse vitae commodo.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Whatsection end -->
+
+
+
+	<!-- Testimonials section -->
+	<section class="testimonials-section">
+		<div class="container">
+			<div class="section-title">
+				<p>The only ones</p>
+				<h2>Testimonials</h2>
+			</div>
+			<div class="row">
+				<div class="col-lg-10 offset-lg-1">
+					<div class="testimonials-slider owl-carousel">
+						<div class="testimonial-item">
+							<p>Phasellus vehicula tempus orci vel consequat. Nullam lorem sem, viverra a rutrum sed, gravida mattis magna. Suspendisse vitae commodo quam. Quisque a enim et ante vulputate finibus nec laoreet ipsum. Etiam lobortis erat vel ullamcorper tristique. Morbi pellentesque orci augue, quis finibus justo accumsan nec. Donec imperdiet sodales lectus sed consectetur. Mauris dignissim.Morbi pellentesque orci augue, quis finibus justo accumsan nec. Donec imperdiet sodales lectus sed consectetur. Mauris dignissim</p>
+							<div class="ti-author-pic set-bg" data-setbg="img/testimonials/1.jpg"></div>
+							<h5>Maria Smith, Client</h5>
+						</div>
+						<div class="testimonial-item">
+							<p>Phasellus vehicula tempus orci vel consequat. Nullam lorem sem, viverra a rutrum sed, gravida mattis magna. Suspendisse vitae commodo quam. Quisque a enim et ante vulputate finibus nec laoreet ipsum. Etiam lobortis erat vel ullamcorper tristique. Morbi pellentesque orci augue, quis finibus justo accumsan nec. Donec imperdiet sodales lectus sed consectetur. Mauris dignissim.Morbi pellentesque orci augue, quis finibus justo accumsan nec. Donec imperdiet sodales lectus sed consectetur. Mauris dignissim</p>
+							<div class="ti-author-pic set-bg" data-setbg="img/testimonials/1.jpg"></div>
+							<h5>Maria Smith, Client</h5>
+						</div>
+						<div class="testimonial-item">
+							<p>Phasellus vehicula tempus orci vel consequat. Nullam lorem sem, viverra a rutrum sed, gravida mattis magna. Suspendisse vitae commodo quam. Quisque a enim et ante vulputate finibus nec laoreet ipsum. Etiam lobortis erat vel ullamcorper tristique. Morbi pellentesque orci augue, quis finibus justo accumsan nec. Donec imperdiet sodales lectus sed consectetur. Mauris dignissim.Morbi pellentesque orci augue, quis finibus justo accumsan nec. Donec imperdiet sodales lectus sed consectetur. Mauris dignissim</p>
+							<div class="ti-author-pic set-bg" data-setbg="img/testimonials/1.jpg"></div>
+							<h5>Maria Smith, Client</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Testimonials section end -->
+
+
+	<!-- Footer top section -->
+	<section class="footer-top-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-12">
+					<div class="footer-widget about-widget">
+						<img src="img/logo.png" alt="">
+						<p>Sed ultrices interdum libero, laoreet facilisis dui fringilla ut. Nullam nisi sem, tristique ut sapien nec, tempus auctor purus. Maecenas eu lectus non dolor euismod dignissim vitae vel tortor. </p>
+						<div class="social-links">
+							<a href="#"><i class="fa fa-pinterest"></i></a>
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-dribbble"></i></a>
+							<a href="#"><i class="fa fa-behance"></i></a>
+							<a href="#"><i class="fa fa-linkedin"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-4">
+					<div class="footer-widget">
+						<h5 class="fw-title">Our Products</h5>
+						<ul>
+							<li><a href="#">Web Hosting</a></li>
+							<li><a href="#">Reseller Hosting</a></li>
+							<li><a href="#">VPS Hosting</a></li>
+							<li><a href="#">Dedicated Servers</a></li>
+							<li><a href="#">Windows Hosting</a></li>
+							<li><a href="#">Cloud Hosting</a></li>
+							<li><a href="#">Linux Servers</a></li>
+							<li><a href="#">WordPress Hosting</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-4">
+					<div class="footer-widget">
+						<h5 class="fw-title">Our Solutions</h5>
+						<ul>
+							<li><a href="">Reseller Hosting</a></li>
+							<li><a href="">WordPress Hosting</a></li>
+							<li><a href="">VPS Hosting</a></li>
+							<li><a href="">Dedicated Servers</a></li>
+							<li><a href="">Windows Hosting</a></li>
+							<li><a href="">Cloud Hosting</a></li>
+							<li><a href="">Linux Servers</a></li>
+							<li><a href="">Web Hosting</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-4">
+					<div class="footer-widget">
+						<h5 class="fw-title">Our Products</h5>
+						<ul>
+							<li><a href="#">Dedicated Servers</a></li>
+							<li><a href="#">Windows Hosting</a></li>
+							<li><a href="#">Cloud Hosting</a></li>
+						</ul>
+					</div>
+					<div class="footer-widget">
+						<h5 class="fw-title">Company</h5>
+						<ul>
+							<li><a href="#">Dedicated Servers</a></li>
+							<li><a href="#">Windows Hosting</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Footer top section end -->
+
+
+	
+	<!-- Footer section -->
+	<footer class="footer-section">
+		<div class="container">
+			<div class="footer-nav">
+				<ul>
+					<li><a href="home.html">Home</a></li>
+					<li><a href="about.html">About us</a></li>
+					<li><a href="service.html">Services</a></li>
+					<li><a href="blog.html">News</a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</div>
+			<div class="copyright">
+				<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</p>
+			</div>
+		</div>
+	</footer>
+	<!-- Footer section end -->
+
+
+	<!--====== Javascripts & Jquery ======-->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/circle-progress.min.js"></script>
+	<script src="js/main.js"></script>
+
+	</body>
+</html>
