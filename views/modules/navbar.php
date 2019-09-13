@@ -1,7 +1,19 @@
+<style>
+    .neon:hover{
+        cursor:hand;
+        color: #fff;
+        font-weight: bold;
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 25px #ff00de;
+        -webkit-text-fill-color: #F4ECFF;
+        -webkit-text-stroke-color:#C546F7;
+        -webkit-text-stroke-width:0.2px; 
+    }
+</style>
+
 <header class="header-section">
     <div class="container">
-        <a href="index.html" class="site-logo">
-            <img src="img/logo.png" alt="logo">
+        <a href="index.php" class="site-logo">
+            <img src="img/NitroNet.png" width="70%" alt="logo">
         </a>
         <!-- Switch button -->
         <div class="nav-switch">
@@ -9,16 +21,16 @@
         </div>
         <div class="header-right">
             <ul class="main-menu">
-                <li <?php if(isset($_GET['pg'])){if($_GET['pg'] == 'inicio'){ echo 'class="active"';}} ?>>
+                <li class="neon" <?php if(isset($_GET['pg'])){if($_GET['pg'] == 'inicio'){ echo 'class="active"';}} ?>>
                     <a href="index.php">Inicio</a></li>
 
-                <li <?php if(isset($_GET['pg'])){if($_GET['pg'] == 'nosotros'){ echo 'class="active"';}} ?>>
+                <li class="neon" <?php if(isset($_GET['pg'])){if($_GET['pg'] == 'nosotros'){ echo 'class="active"';}} ?>>
                     <a href="index.php?pg=nosotros">¿Quienes Somos?</a></li>
 
-                <li <?php if(isset($_GET['pg'])){if($_GET['pg'] == 'servicios'){ echo 'class="active"';}} ?>>
+                <li class="neon" <?php if(isset($_GET['pg'])){if($_GET['pg'] == 'servicios'){ echo 'class="active"';}} ?>>
                     <a href="index.php?pg=servicios">Servicios</a></li>
 
-                <li <?php if(isset($_GET['pg'])){if($_GET['pg'] == 'contactanos'){ echo 'class="active"';}} ?>>
+                <li class="neon" <?php if(isset($_GET['pg'])){if($_GET['pg'] == 'contactanos'){ echo 'class="active"';}} ?>>
                     <a href="index.php?pg=contactanos">Contactanos</a></li>
             </ul>
             <div class="header-btns">

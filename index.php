@@ -27,8 +27,6 @@
     <div class="loader"></div>
 </div--->
 
-    <?php $navController->loadNavbar(); ?>
-
     <?php $navController->loadView(); ?>
 
 

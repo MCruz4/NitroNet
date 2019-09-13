@@ -30,9 +30,15 @@ class NavigationController{
         } //Fin del onLogin()
 
         if(isset($_GET['pg'])){
+            if($_GET['pg'] == 'admin'){
+                $this->loadAdminPanelNavBar();
+            }else{
+                $this->loadNavBar();
+            }
             $toLoad = $navModel->defineView($_GET['pg']);
         }else{
             $toLoad = 'inicio.php';
+            $this->loadNavBar();
         }
         include 'views/'.$toLoad;
         
@@ -41,6 +47,10 @@ class NavigationController{
 
     public function loadNavBar(){
         include 'views/modules/navbar.php';
+
+    }//Fin del 
+    public function loadAdminPanelNavBar(){
+        include 'views/modules/admin/navbar.php';
 
     }//Fin del navBar
 }

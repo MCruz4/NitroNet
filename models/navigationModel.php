@@ -7,12 +7,16 @@ class NavigationModel{
             $pgCtrl == 'nosotros' ||
             $pgCtrl == 'servicios' ||
             $pgCtrl == 'paneles' ||
-            $pgCtrl == 'registro'){
+            $pgCtrl == 'registro' ||
+            $pgCtrl == 'contactanos'){
         //------
             $pgCtrl .= '.php';
-        }else if( $_SESSION['userType'] == 1 &&
-            $pgCtrl == 'admin'){
-            
+        }else if ($pgCtrl == 'admin'){
+           if(isset($_SESSION['userType'])){
+               if($_SESSION['userType'] == 1){
+                $pgCtrl .= '.php';
+               }
+           }
         }else{
             $pgCtrl = 'notfound.php';
         }
