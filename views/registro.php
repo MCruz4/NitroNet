@@ -1,0 +1,217 @@
+<head>     
+	<title>Nuevo Regitro</title>
+</head> 
+
+<style>
+body{
+margin:0;
+padding:0;
+font-family:sans-serif;
+background:#34495e;
+
+}
+.box{
+	background: #191919;
+	text-align: center;
+}
+.box h1{
+	color: white;
+	text-transform: uppercase;
+	font-weight: 500;
+}
+
+.box > label{
+    color: white;
+}
+
+.box input[type = "text"],.box input[type = "password"], .box input[type = "email"], .box input[type = "date"]{
+	border:0;
+	background:none;
+	display:block;
+	margin: 20px auto;
+	text-align:center;
+	border: 2px solid #3498db;
+	padding: 14px 10px;
+	width: 200px;
+	outline: none;
+	color: white;
+	border-radius:24px;
+	transition:0.25s;
+}
+
+.box input[type = "text"]:focus, .box input[type="password"]:focus, .box input[type = "date"]:focus, .box input[type = "email"]:focus{
+width: 280px;
+border-color:#2ecc71;
+}
+
+button{
+	border: 0;
+	background: none;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	border: 2px solid #2ecc71;
+	padding: 14px 40px;
+	width: 200px;
+	outline: none;
+	color: white;
+	border-radius: 24px;
+	transition:0.25s;
+	cursor: pointer;
+
+}
+
+button:hover{
+	background: #2ecc71;
+}
+
+footer{
+	color: white;
+}
+
+</style>
+<!---div class="hs-item set-bg" data-setbg="img/bg.jpg"></div--->
+<div class="row hs-item set-bg" data-setbg="img/bg.jpg">
+     <div class="box col-10 col-lg-4" id="formRegister">
+    <h1>Iniciar Sesión</h1>
+
+    <input  type="text" name="name" id="name" placeholder="Nombre" required>
+    <input  type="text" name="lastname" id="lastname" placeholder="Apellido" required>
+
+    <input  type="date" name="birthday" id="birthday" required>
+    <input  type="email" name="email" id="email" placeholder="Correo Electronico" required>
+
+    <input  type="text" name="telefono" id="cellphone" placeholder="Telefono" required>
+    <input  type="password" name="passwd" id="passwd" placeholder="Contraseña" required>
+    <input  type="password" name="passwdConf" id="passwdConf" placeholder="Repita su Contraseña" required>
+
+    
+    <input type="checkbox" id="policyTerms" id="termsPolicy" name="policyTerms">
+    <label for="policyTerms">Acepto los Terminos y Condiciones de Uso</label><br>
+    
+    
+    
+    <button onclick="regUser()">Ola Wapo</button>
+    <footer>
+       <h6> &copy; Derechos reservados.</h6>  
+    </footer>
+</div>
+</div>
+
+<div class="toast">
+  <div class="toast-header"></div>
+  <div class="toast-body"></div>
+</div>
+
+ 
+<script>
+//ValidarFormulario
+
+/*function validateForm(){
+    var campos = document.getElementsByTagName("input");
+    var control = 0;
+    for (var i = 0; i < campos.lenght; i++){
+        if(campos.value == null && campos.value == ""){
+            control++;
+        }
+    }
+    if (control > 0){
+        alert("Rellene todos los campos");
+    }else{
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        });
+    }
+}*/
+
+function regUser(){
+    var email = document.getElementById("email").value;
+    var passwd = document.getElementById("passwd").value;
+
+    var name = document.getElementById("name").value;
+    var lastname = document.getElementById("lastname").value;
+    var birthday = document.getElementById("birthday").value;
+    var email = document.getElementById("email").value;
+    var cellphone = document.getElementById("cellphone").value;
+
+    if(document.getElementById('policyTerms').checked == false){
+        alert("No has aceptado los termino y condiciones de uso");
+        return;
+    }
+    if(email != ""){
+        if(passwd != document.getElementById('passwdConf').value){
+            alert("Las contraseñas no coinciden");
+            return;
+        }
+        console.log("Registrando usuario");
+        firebase.auth().createUserWithEmailAndPassword(email, passwd).then(function(success){
+            var userSession = firebase.auth().currentUser;
+            console.log(userSession.email);
+            firebase.database().ref('users').push({
+                uid: userSession.uid,
+                name: name,
+                lastname: lastname,
+                birthday: birthday,
+                cellphone: cellphone,
+            });
+            
+            var data = {uid: userSession.uid, uname: name};
+            console.log('enviando peticion al servidor' + data);
+            $.post('scripts/onRegister.php', data, function(result){
+                console.log("validando inicio de sesion");
+                if(result == 1){
+                    window.location.href = "index.php";
+                }
+                
+            });
+
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorMessage);
+            // ...
+        });
+        
+    }else{
+        alert("Asegurate de llenar correctamente los campos");
+    }
+}
+
+function setService() {
+    var dt = new Date();
+    var month = dt.getMonth() + 1;
+    var day = dt.getDate();
+    var year = dt.getFullYear();
+
+    if (day < 10) { day = '0' + day; }
+    if (month < 10) { month = '0' + month; }
+    var horaregistro = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+    firebase.database().ref('services').push({
+        Standard:{
+            price: 25.00,
+            capacity: "5 MB"
+
+        }
+        /*fecha: {
+            dia: day,
+            mes: month,
+            anio: year
+        },
+        hora: horaregistro,
+        nombre: document.getElementById('estudiante').value,
+        codigo: document.getElementById('codigo').value,
+        asignatura: document.getElementById('asignatura').value,
+        descripcion: document.getElementById('detalleAsesoria').value */      
+    });
+    /*document.getElementById('estudiante').value = "";
+    document.getElementById('codigo').value = "";
+    document.getElementById('asignatura').value = "";
+    document.getElementById('detalleAsesoria').value = "";*/
+    console.log("Hola Wapo");
+}
+
+</script>

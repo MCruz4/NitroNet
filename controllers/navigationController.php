@@ -29,9 +29,17 @@ class NavigationController{
             header('Location: index.php');
         } //Fin del onLogin()
 
+        if(isset($_GET['onRegister'])){
+            $_SESSION['user'] = $_POST['uname'];
+            $_SESSION['userID'] = $_POST['uid'];
+            $_SESSION['userType'] = 0;
+            sleep(500);
+        }
+
         if(isset($_GET['pg'])){
             if($_GET['pg'] == 'admin'){
-                $this->loadAdminPanelNavBar();
+                //To Admin Panel
+                header('Location: views/modules/admin/');
             }else{
                 $this->loadNavBar();
             }
@@ -49,9 +57,6 @@ class NavigationController{
         include 'views/modules/navbar.php';
 
     }//Fin del 
-    public function loadAdminPanelNavBar(){
-        include 'views/modules/admin/navbar.php';
-
-    }//Fin del navBar
+   
 }
 ?>

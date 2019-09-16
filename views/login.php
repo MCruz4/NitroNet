@@ -84,3 +84,46 @@ footer{
     </footer>
 </form>
  
+
+<script>
+	function regUser(){
+    var email = document.getElementById("email").value;
+    var passwd = document.getElementById("passwd").value;
+
+    if(document.getElementById('policyTerms').checked == false){
+        alert("No has aceptado los termino y condiciones de uso");
+        return;
+    }
+    if(email != "" && passwd !=""){
+        console.log("Registrando usuario");
+            
+            firebase.auth().signInWithEmailAndPassword(email, passwd).catch(function(error) {
+				alert(error.message);
+			});
+			var userSession = firebase.auth().currentUser;
+			console.log(userSession.email);
+			
+			
+            
+            var data = {uid: userSession.uid, uname: name};
+            $.post('scripts/onRegister.php', data, function(result){
+                console.log("validando inicio de sesion");
+                if(result == 1){
+                    window.location.href = "index.php";
+                }
+                
+            });
+
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorMessage);
+            // ...
+        });
+        
+    }else{
+        alert("Asegurate de llenar correctamente los campos");
+    }
+}
+</script>

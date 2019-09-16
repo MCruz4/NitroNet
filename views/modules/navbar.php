@@ -43,13 +43,23 @@
                 
                 <?php if(isset($_SESSION['user'])){ ?>
                 <a href="index.php?pg=perfil" class="site-btn sb-c2"><?php echo $_SESSION['user']; ?></a>
-                <a href="index.php?onLogout=true" class="site-btn sb-c2">Salir</a>
+                <a href="" onclick="closeSession()" class="site-btn sb-c2">Salir</a>
                 <?php }else {?>
 
                 <a href="index.php?pg=login" class="site-btn sb-c2">Ingresar</a>
-                <a href="#" class="site-btn sb-c3">Registrarse</a>
+                <a href="index.php?pg=registro" class="site-btn sb-c3">Registrarse</a>
                 <?php } ?>
             </div>
         </div>
     </div>
 </header>
+
+<script>
+    function closeSession(){
+        firebase.auth().signOut().then(function() {
+            window.location.href = "index.php?onLogout=true";
+        }).catch(function(error) {
+            // An error happened.
+        });
+    }
+</script>

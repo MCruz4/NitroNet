@@ -20,12 +20,33 @@
 	<link rel="stylesheet" href="css/style.css"/>
 	<link rel="stylesheet" href="css/animate.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 </head>
 
+<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAFfyQdO6HasELT3ywjoI1BxWqSqQMYXis",
+    authDomain: "nitronet-21f41.firebaseapp.com",
+    databaseURL: "https://nitronet-21f41.firebaseio.com",
+    projectId: "nitronet-21f41",
+    storageBucket: "nitronet-21f41.appspot.com",
+    messagingSenderId: "353411586533",
+    appId: "1:353411586533:web:b5cf3f32690a8ca2d2b70c"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
 <body>
-<!---div id="preloder">
-    <div class="loader"></div>
-</div--->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+
 
     <?php $navController->loadView(); ?>
 
@@ -37,5 +58,6 @@
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/circle-progress.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/firebaseCRUD.js"></script>
 </body>
 </html>
