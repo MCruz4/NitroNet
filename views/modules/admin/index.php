@@ -76,36 +76,20 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav toggled">
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-envelope"></i>
-          <span>Mensajes</span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <h6 class="dropdown-header">Login Screens:</h6>
-          <a class="dropdown-item" href="login.html">Login</a>
-          <a class="dropdown-item" href="register.html">Register</a>
-          <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-          <div class="dropdown-divider"></div>
-          <h6 class="dropdown-header">Other Pages:</h6>
-          <a class="dropdown-item" href="404.html">404 Page</a>
-          <a class="dropdown-item" href="blank.html">Blank Page</a>
-        </div>
+      <span class="nav-link" onclick="loadModule(this)" data-module="resumen">
+          <i class="fas fa-fw fa-tachometer-alt"></i>Tablero</span>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pagos.php">
-          <i class="fas fa-fw fa-usd"></i>
-          <span>Pagos</span></a>
+      <span class="nav-link" onclick="loadModule(this)" data-module="mensajes">
+          <i class="fas fa-fw fa-envelope"></i>Mensajes</span>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="clientes.php">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Clientes</span></a>
+        <span class="nav-link" onclick="loadModule(this)" data-module="pagos">
+        <i class="fas fa-fw fa-dollar"></i>Pagos</span>
+      </li>
+      <li class="nav-item">
+        <span class="nav-link" onclick="loadModule(this)" data-module="clientes">
+          <i class="fas fa-fw fa-users"></i>Clientes</span>
       </li>
     </ul>
 
@@ -161,10 +145,14 @@
   <script src="js/demo/datatables-demo.js"></script>
 
 <script type="text/javascript">
-  window.onload = loadData();
+  window.onload = loadInit();
 
-  function loadData(){
+  function loadInit(){
     $('#content-wrapper').load("resumen.php");
+  }
+  function loadModule(object){
+    var toLoad = object.getAttribute('data-module');
+    $('#content-wrapper').load(toLoad+".php");
   }
 </script>
 

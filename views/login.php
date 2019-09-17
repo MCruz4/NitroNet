@@ -46,7 +46,7 @@ width: 280px;
 border-color:#2ecc71;
 }
 
-.box input[type="submit"]{
+.box >button{
 	border: 0;
 	background: none;
 	display: block;
@@ -63,7 +63,7 @@ border-color:#2ecc71;
 
 }
 
-.box input[type = "submit"]:hover{
+.box > button:hover{
 	background: #2ecc71;
 }
 
@@ -74,56 +74,51 @@ footer{
 </style>
 <div class="hs-item set-bg" data-setbg="img/bg.jpg">
 <div class="w-100 p-4"></div>
-     <form class="box" action="index.php?onLogin=true" method="post" >
+     <div class="box" if="loginForm">
     <h1>Iniciar Sesión</h1>
-    <input  type="text" name="user" placeholder="Usuario" required>
-    <input  type="password" name="passwd" placeholder="Contraseña" required>
-    <input  type="submit" name="" value="Iniciar" onclick="">
+    <input  type="text" name="email" id="email" placeholder="Correo Electronico" required>
+    <input  type="password" name="passwd" id="passwd" placeholder="Contraseña" required>
+    <button name="login" value="login" onclick="signIn()">Iniciar Sesion</button>
     <footer>
        <h6> &copy; Derechos reservados.</h6>  
     </footer>
-</form>
+</div>
  
 
 <script>
-	function regUser(){
+	function signIn(){
     var email = document.getElementById("email").value;
     var passwd = document.getElementById("passwd").value;
 
-    if(document.getElementById('policyTerms').checked == false){
-        alert("No has aceptado los termino y condiciones de uso");
-        return;
-    }
     if(email != "" && passwd !=""){
-        console.log("Registrando usuario");
+        console.log("consultando al servidor");
+		var data;
             
-            firebase.auth().signInWithEmailAndPassword(email, passwd).catch(function(error) {
-				alert(error.message);
-			});
+		firebase.auth().signInWithEmailAndPassword(email, passwd).catch(function(error) {
+			alert(error.message);
+		}).then(function(success){
 			var userSession = firebase.auth().currentUser;
-			console.log(userSession.email);
+			var ref = firebase.database().ref("users");
+			ref.orderByChild("uid").equalTo(userSession.uid).on("child_added", function(userD) {
+				var udata = JSON.parse(JSON.stringify(userD));
+				data = {uid: userSession.uid, uname: udata.name, utype: udata.utype};
+				console.log(userSession.email);
+				$.post('scripts/onLogin.php', data, function(result){ //
+					console.log("Iniciando Sesion");
+					if(result == 1){
+						window.location.href = "index.php";
+					}
+				}); //termina $.post()
+			}); //Termina el "select"
 			
 			
-            
-            var data = {uid: userSession.uid, uname: name};
-            $.post('scripts/onRegister.php', data, function(result){
-                console.log("validando inicio de sesion");
-                if(result == 1){
-                    window.location.href = "index.php";
-                }
-                
-            });
+			
+			
 
-        }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert(errorMessage);
-            // ...
-        });
-        
+		});// Fin promesa signIn
     }else{
         alert("Asegurate de llenar correctamente los campos");
     }
 }
+
 </script>

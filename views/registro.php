@@ -156,18 +156,19 @@ function regUser(){
                 lastname: lastname,
                 birthday: birthday,
                 cellphone: cellphone,
-            });
-            
-            var data = {uid: userSession.uid, uname: name};
-            console.log('enviando peticion al servidor' + data);
-            $.post('scripts/onRegister.php', data, function(result){
-                console.log("validando inicio de sesion");
-                if(result == 1){
-                    window.location.href = "index.php";
-                }
+                utype: 0
+            }).then(function(success){
+                var data = {uid: userSession.uid, uname: name};
+                console.log('enviando peticion al servidor' + data);
+                $.post('scripts/onRegister.php', data, function(result){
+                    console.log("validando inicio de sesion");
+                    if(result == 1){
+                        window.location.href = "index.php";
+                    }
                 
-            });
-
+                }); //Fin del $.post()
+            }); //Fin de la promesa del push
+            
         }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -180,38 +181,4 @@ function regUser(){
         alert("Asegurate de llenar correctamente los campos");
     }
 }
-
-function setService() {
-    var dt = new Date();
-    var month = dt.getMonth() + 1;
-    var day = dt.getDate();
-    var year = dt.getFullYear();
-
-    if (day < 10) { day = '0' + day; }
-    if (month < 10) { month = '0' + month; }
-    var horaregistro = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-    firebase.database().ref('services').push({
-        Standard:{
-            price: 25.00,
-            capacity: "5 MB"
-
-        }
-        /*fecha: {
-            dia: day,
-            mes: month,
-            anio: year
-        },
-        hora: horaregistro,
-        nombre: document.getElementById('estudiante').value,
-        codigo: document.getElementById('codigo').value,
-        asignatura: document.getElementById('asignatura').value,
-        descripcion: document.getElementById('detalleAsesoria').value */      
-    });
-    /*document.getElementById('estudiante').value = "";
-    document.getElementById('codigo').value = "";
-    document.getElementById('asignatura').value = "";
-    document.getElementById('detalleAsesoria').value = "";*/
-    console.log("Hola Wapo");
-}
-
 </script>
