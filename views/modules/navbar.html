@@ -1,0 +1,70 @@
+<style>
+    .neon:hover{
+        cursor:hand;
+        color: #fff;
+        font-weight: bold;
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 25px #ff00de;
+        -webkit-text-fill-color: #F4ECFF;
+        -webkit-text-stroke-color:#C546F7;
+        -webkit-text-stroke-width:0.2px; 
+    }
+</style>
+
+<header class="header-section">
+    <div class="container">
+        <a href="index.php" class="site-logo">
+            <img src="img/NitroNet.png" width="70%" alt="logo">
+        </a>
+        <!-- Switch button -->
+        <div class="nav-switch">
+            <div class="ns-bar"></div>
+        </div>
+        <div class="header-right">
+            <ul class="main-menu" id="navbarOpts">
+                
+            </ul>
+            <div class="header-btns" id="optLogged">
+                    <!--/ul id="optLogged"></ul--->
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+    window.onload = defineOptions();
+    function defineOptions(){
+        var opt = '<li class="neon">'+
+                    '<span onclick="loadModule(this)" data-module="inicio">Inicio</span></li>';
+        opt += '<li class="neon nav-tabstabs">'+
+            '<span onclick="loadModule(this)" data-module="nosotros">¿Quienes Somos?</span></li>';
+        opt += '<li class="neon">'+
+            '<span onclick="loadModule(this)" data-module="servicios">Servicios</span></li>';
+        opt += '<li class="neon">'+
+            '<span onclick="loadModule(this)" data-module="contactanos">Contactanos</span></li>';
+        $('#navbarOpts').html(opt);
+        console.log(usession);
+        
+        opt = '';
+        if(usession != null){
+            if(usession.utype == 0){
+                opt += '<span data-module="messages" onclick="loadModule(this)" class="site-btn sb-c1">Soporte 24/7</span>';
+            }else{
+                opt += '<a href="views/admin.html" class="site-btn sb-c1">Administrar</a>';                
+            }
+            opt += '<span data-module="perfil" onclick="loadModule(this)" class="site-btn sb-c2">'+
+                    usession.name +'</span>';
+            opt += '<span onclick="closeSession()" class="site-btn sb-c2">Salir</span>';
+        }else{
+            opt += '<span onclick="loadModule(this)" data-module="login" class="site-btn sb-c2">Ingresar</span>';
+            opt += '<span onclick="loadModule(this)" data-module="registro" class="site-btn sb-c3">Registrarse</span>';
+        }
+        $('#optLogged').html(opt);
+    }
+    function closeSession(){
+        firebase.auth().signOut().then(function() {
+            window.location.href = "index.php?onLogout=true";
+        }).catch(function(error) {
+            // An error happened.
+        });
+    }
+</script>

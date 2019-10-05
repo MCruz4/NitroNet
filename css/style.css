@@ -400,7 +400,7 @@ ol {
 
 .header-section {
 	background: rgba(0, 0, 0, 0.63);
-	padding: 30px 0px;
+	padding: 15px 0px;
 	border-bottom: 2px solid #25ae88;
 	position: absolute;
 	width: 100%;
@@ -433,7 +433,7 @@ ol {
 	display: inline;
 }
 
-.main-menu li a {
+.main-menu li span {
 	display: inline-block;
 	font-size: 15px;
 	color: #fff;
@@ -443,7 +443,7 @@ ol {
 	font-weight: 500;
 }
 
-.main-menu li.active a {
+.main-menu li.active span {
 	background: #556080;
 }
 
@@ -1300,7 +1300,7 @@ ol {
 	.main-menu {
 		margin-left: 40px;
 	}
-	.main-menu li a {
+	.main-menu li span {
 		margin-left: 0;
 		font-size: 14px;
 	}
@@ -1362,9 +1362,6 @@ ol {
 /* Tablet :768px. */
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-	.header-section {
-		padding: 35px 0px;
-	}
 	.header-section .header-right {
 		position: fixed;
 		background: #fff;
@@ -1436,13 +1433,13 @@ ol {
 		display: block;
 		border-bottom: 1px solid #f1f1f1;
 	}
-	.main-menu li a {
+	.main-menu li span {
 		display: block;
 		color: #000;
 		margin-left: 0;
 		padding: 12px 21px;
 	}
-	.main-menu li.active a {
+	.main-menu li.active span {
 		color: #fff;
 	}
 	.header-btns {
@@ -1629,13 +1626,13 @@ ol {
 		display: block;
 		border-bottom: 1px solid #f1f1f1;
 	}
-	.main-menu li a {
+	.main-menu li span{
 		display: block;
 		color: #000;
 		margin-left: 0;
 		padding: 12px 21px;
 	}
-	.main-menu li.active a {
+	.main-menu li.active span {
 		color: #fff;
 	}
 	.header-btns {

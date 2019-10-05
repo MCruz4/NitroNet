@@ -1,12 +1,6 @@
-<?php 
-    session_start();
-    require 'controllers/navigationController.php';
-    
-    $navController = new NavigationController();
-?>
-
 <html>
 <head>
+    <title>NitroNet</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,6 +24,7 @@
      https://firebase.google.com/docs/web/setup#config-web-app -->
 
 <script>
+  var usession = null;
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyAFfyQdO6HasELT3ywjoI1BxWqSqQMYXis",
@@ -45,19 +40,55 @@
 </script>
 
 <body>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
+
+    <div id="LaNavBar"></div>
+
+   <div id="MainContainer"></div>
 
 
-    <?php $navController->loadView(); ?>
+
+   <script src="js/bootstrap.min.js"></script>
+   <script src="js/jquery-3.4.1.min.js"></script>
+   <script src="js/owl.carousel.min.js"></script>
+   <script src="js/jquery.magnific-popup.min.js"></script>
+   <script src="js/firebaseCRUD.js"></script>
+<script>
+  
+  $(document).ready(function(){
+    initPage();
+  });
+
+  async function verifySession() {
+    usession = await firebase.auth().currentUser;
+    console.log(usession);
+    if(usession == null){
+      $('#MainContainer').load("views/inicio.html");
+    }
+  }
+
+  function initPage(){
+    verifySession();
+    $('#MainContainer').load('views/inicio.html');
+    $('#LaNavBar').load("views/modules/navbar.html");
+  }
+
+  function loadModule(object){ //agregar data-module a lo que se quiera cargar
+    var toLoad = object.getAttribute('data-module');
+    $.ajax({
+    url:'views/'+toLoad+'.html',
+    type:'HEAD',
+    error: function()
+    {
+      $('#MainContainer').load("views/notfound.html");
+    },
+    success: function()
+    {
+      $('#MainContainer').load("views/"+toLoad+".html");
+    }
+    });
+  }
+  </script>
 
 
-
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery-3.4.1.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/circle-progress.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/firebaseCRUD.js"></script>
 </body>
 </html>

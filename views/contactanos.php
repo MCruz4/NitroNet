@@ -1,6 +1,4 @@
 
-<body>
-	
 	<!-- Page Top section -->
 	<section class="page-top-section set-bg" data-setbg="img/page-top-bg/3.jpg">
 		<div class="container">
@@ -50,4 +48,4 @@
 	</section>
 	<!-- Services section end -->
 
-	</body>
+	<script src="js/main.js"></script>
