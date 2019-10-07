@@ -159,14 +159,7 @@ function regUser(){
                 utype: 0
             }).then(function(success){
                 var data = {uid: userSession.uid, uname: name};
-                console.log('enviando peticion al servidor' + data);
-                $.post('scripts/onRegister.php', data, function(result){
-                    console.log("validando inicio de sesion");
-                    if(result == 1){
-                        window.location.href = "index.php";
-                    }
-                
-                }); //Fin del $.post()
+                window.location.href = "index.html";
             }); //Fin de la promesa del push
             
         }).catch(function(error) {

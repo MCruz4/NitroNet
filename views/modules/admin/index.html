@@ -1,14 +1,3 @@
-<?php 
-  session_start();
-  if(isset($_SESSION['userType'])){
-    if($_SESSION['userType'] != 1){
-      header('Location: ../../../');
-    }
-  }else{
-    header('Location: ../../../');
-  }
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -60,7 +49,7 @@
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user-circle fa-fw"></i>
-          <b><?php echo $_SESSION['user'];?>
+          
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <span class="dropdown-item"></b></span>
@@ -90,6 +79,10 @@
       <li class="nav-item">
         <span class="nav-link" onclick="loadModule(this)" data-module="clientes">
           <i class="fas fa-fw fa-users"></i>Clientes</span>
+      </li>
+      <li class="nav-item">
+        <span class="nav-link" onclick="loadModule(this)" data-module="newservice">
+          <i class="fas fa-fw fa-users"></i>Nuevo Contrato</span>
       </li>
     </ul>
 
@@ -148,11 +141,11 @@
   window.onload = loadInit();
 
   function loadInit(){
-    $('#content-wrapper').load("resumen.php");
+    $('#content-wrapper').load("resumen.html");
   }
   function loadModule(object){
     var toLoad = object.getAttribute('data-module');
-    $('#content-wrapper').load(toLoad+".php");
+    $('#content-wrapper').load(toLoad+".html");
   }
 </script>
 
@@ -160,10 +153,8 @@
 
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#config-web-app -->
+<script src="../../../js/firebase-6.6.1.js"></script>
+<script src="../../../js/firebaseui-3.5.2.js"></script>
 
 <script>
   // Your web app's Firebase configuration
@@ -178,6 +169,12 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+/////-----lOADIG DATA RESUMEN------////// 
+
+  function loadResumenData(){
+    //GetData
+    
+  }
 </script>
 
 </body>

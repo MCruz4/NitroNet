@@ -48,6 +48,10 @@
   box-sizing: border-box;
 }
 
+button:active{
+  background: none;
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -10682,6 +10686,9 @@ body {
   text-align: center;
   padding: 0.75rem 1rem;
   width: 90px;
+}
+.nav-item:hover{
+  cursor: pointer;
 }
 
 .sidebar .nav-item .nav-link span {

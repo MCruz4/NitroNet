@@ -81,7 +81,7 @@ footer{
 	<button name="login" value="login" onclick="signIn()">Iniciar Sesion</button>
 	
     <footer>
-		<h6 id="Informe"></h6>
+		<h5 id="Informe"></h5>
        <h6> &copy; Derechos reservados.</h6>  
     </footer>
 </div>
@@ -91,30 +91,14 @@ footer{
 	function signIn(){
     var email = document.getElementById("email").value;
     var passwd = document.getElementById("passwd").value;
-
     if(email != "" && passwd !=""){
-        $('#Informe').html("consultando al servidor");
+        $('#Informe').html("Consultando al servidor <br> Por Favor Espere...");
 		var data;
             
 		firebase.auth().signInWithEmailAndPassword(email, passwd).catch(function(error) {
 			alert(error.message);
-			$('#Informe').html("Ocurrió un error, vuelva a intentarlo");
 		}).then(function(success){
-			var userSession = firebase.auth().currentUser;
-			var ref = firebase.database().ref("users");
-			ref.orderByChild("uid").equalTo(userSession.uid).on("child_added", function(userD) {
-				var udata = JSON.parse(JSON.stringify(userD));
-				data = {uid: userSession.uid, uname: udata.name, utype: udata.utype};
-				console.log(userSession.email);
-				$.post('scripts/onLogin.php', data, function(result){ //
-					console.log("Iniciando Sesion");
-					if(result == 1){
-						window.location.href = "index.html";
-					}else{
-						$('#Informe').html("No se pudo iniciar sesion <br> Revisa tus credenciales");
-					}
-				}); //termina $.post()
-			}); //Termina el "select"
+			window.location.href = "index.html";
 		});// Fin promesa signIn
     }else{
         alert("Asegurate de llenar correctamente los campos");

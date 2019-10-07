@@ -1,0 +1,145 @@
+<section>
+    
+    <form id="newContrato" class="form">
+        <div class="row form-inline">
+                
+            <div class="col-2 col-lg-2 offset-lg-3">
+                <label>Elija el Servicio:</label>
+                <select onchange="loadServiceInfo(this)" class="form-control" id="serviceType">
+                    <option value="">- - -</option>
+                    <option value="3MB">3MB</option>
+                    <option value="5MB">5MB</option>
+                    <option value="10MB">10MB</option>
+                    <option value="25MB">25MB</option>
+                    <option value="50MB">50MB</option>
+                    <option value="100MB">100MB</option>
+                </select>
+                <img src="../../../img/loading2.gif" id="loadingGif" class="ml-3" width="40px" height="40px" hidden>
+            </div> <!---Fin col1 del select-->
+        </div> <!---Find e la priemra Row-->
+
+        <div class="row">
+            <div class="col col-lg-6 offset-lg-3">
+                <p id="infoService"></p>
+            </div><!---Fin col1 row2-->
+        </div><!----Fin row2--> 
+        
+        <div class="row form-inline">
+            <div class="col col-lg-6 offset-lg-3">
+                <label for="fiberConfig"><b>Tipo de Conexion:</b></label>
+                <input type="radio" name="fiberConfig" value="no" checked> Inalambrica
+                <input type="radio" id="fiberConfig" name="fiberConfig" class="ml-3" value="si"> Fibra óptica
+                <hr>
+            </div>
+            
+        </div>
+        
+        <div class="row">
+            <div class="col col-lg-6 offset-lg-3">
+                    <label><b>Datos del Cliente</b></label>
+                <div class="form-group">
+                    <label>Nombre completo del Cliente:</label>
+                    <input type="text" placeholder="Nombre del Cliente" class="form-control" id="clientName">
+                    <label>Direccion del Cliente</label>
+                    <input type="text" placeholder="Direccion del Cliente" class="form-control" id="clientAddress">
+                    <label>Direccion donde se brindará el servicio:</label>
+                    <input type="text" placeholder="Direccion para el Servicio" class="form-control" id="serviceAddress">
+                    <label>Direccion del Cliente</label>      <input type="date" class="form-control" id="clientBirthday">
+                    <label>Email del Cliente</label>id                 <input type="email" placeholder="ejemplo@ejemplo.com" class="form-control" id="clientEmail">
+                    <label>Telefono del Cliente</label>
+                    <input type="text" placeholder="N° de Telefono" pattern="[0-9]{8}" class="form-control" id="clientPhone">
+                    <label>N° de DUI del Cliente</label>
+                    <input type="text" placeholder="N° DUI" pattern="[0-9]{9}" class="form-control" id="clientDUI">
+                    <span onclick="registerNew(this)" id="btnNewReg" class="btn btn-primary disabled">Registrar</span>
+                    <img src="../../../img/loading2.gif" id="newRegGif" class="ml-3" width="40px" height="40px" hidden>
+                </div>
+            </div><!---Fin col1 row2-->
+        </div><!----Fin row2--> 
+                
+                
+        
+    </form>
+</section>
+
+<script>
+    var service = null;
+    var f = new Date();
+    function loadServiceInfo(object){
+        
+        if(object.value == "" || object.value == null){
+            //Resetaer a vacio la info del servicio
+            showServiceInfo(false);
+            $('#btnNewReg').addClass('disabled');
+            return;
+        }
+
+        document.getElementById('loadingGif').hidden = false;
+        var ref = firebase.database().ref("services");
+        ref.child(object.value).once('value').then(function(data) {
+            //El rellenado o el manejo de datos, debe de hacerse aqui, ya que esto es cuando ya se optiene la informacion.
+            service = JSON.parse(JSON.stringify(data));
+            showServiceInfo(true);
+            document.getElementById('loadingGif').hidden = true;
+            $('#btnNewReg').removeClass('disabled');
+        });
+
+    }
+
+    function showServiceInfo(show){
+        var info = '';
+        if(show){
+            info += '<br><b>Nombre de Plan: </b>' + service.name;
+            info += '<br><b>Velocidad: </b>' + service.plan;
+            info += '<br><b>Precio:</b> $' + service.price;
+            info += '<br><b>Fibra Optica:</b> +$' + service.optFiber;
+            info += '<br><b>Tipo: </b>' + service.type;
+        }
+        $('#infoService').html(info);
+    }
+
+    function registerNew(button){
+        //capturar todos los inputs
+        if(!$(button).hasClass('disabled')){
+            var detalle = new Array();
+
+            if($('#fiberConfig').attr('checked')){
+                detalle[0] = 'Fibra Optica';
+                detalle[1] = (parseFloat(service.price) + parseFloat(service.optFiber));              
+            }else{
+                detalle[0] = 'Inalambrica';
+                detalle[1] = parseFloat(service.price);
+            }
+            var data = {
+                service: $('#serviceType').val(),
+                clientName: $('#clientName').val(),
+                clientAddress: $('#clientAddress').val(),
+                serviceAddress: $('#serviceAddress').val(),
+                clientBirthday: $('#clientBirthday').val(),
+                clientPhone: $('#clientPhone').val(),
+                clientDUI: $('#clientDUI').val(),
+                dateContrate: (f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear()),
+                connectType: detalle[0],
+                priceToPay: detalle[1],
+                status: "Activo"
+            }
+            
+            for(i=0; i<data.length; i++){
+                if(data[i] == ''){
+                    console.log("#"+i+" esta vacio");
+                    alert("Algunos campos estan vacios");
+                }
+                
+            }
+            
+            console.log(data);
+            if(confirm("¿Confirma agregar este nuevo registro?")){
+                //Enviamos el DataForm
+                document.getElementById('newRegGif').hidden = false;
+                firebase.database().ref('activeServices').push(data).then(function(){
+                    document.getElementById('newRegGif').src = '../../../img/ok_icon.png';
+                });
+            }
+        }
+        
+    }
+</script>
