@@ -79,9 +79,10 @@ footer{
     <input  type="text" name="email" id="email" placeholder="Correo Electronico" required>
     <input  type="password" name="passwd" id="passwd" placeholder="Contraseña" required>
 	<button name="login" value="login" onclick="signIn()">Iniciar Sesion</button>
-	
+	<img src="img/loading2.gif" id="loadingGif" class="ml-3" width="40px" height="40px" hidden>
+	<p id="statusInfo" style="color: silver"></p>
     <footer>
-		<h5 id="Informe"></h5>
+		
        <h6> &copy; Derechos reservados.</h6>  
     </footer>
 </div>
@@ -92,13 +93,24 @@ footer{
     var email = document.getElementById("email").value;
     var passwd = document.getElementById("passwd").value;
     if(email != "" && passwd !=""){
-        $('#Informe').html("Consultando al servidor <br> Por Favor Espere...");
+        $('#statusInfo').html("Consultando al servidor <br> Por Favor Espere...");
+		document.getElementById('loadingGif').hidden = false;
 		var data;
             
 		firebase.auth().signInWithEmailAndPassword(email, passwd).catch(function(error) {
 			alert(error.message);
+			document.getElementById('loadingGif').hidden = true;
 		}).then(function(success){
-			window.location.href = "index.html";
+			var loggedData = firebase.auth().currentUser;
+			firebase.database().ref('users').orderByChild('uid').equalTo(loggedData.uid).on('value', 
+			function(userData){
+				if(userData.utype == 0){
+					window.location.href = "index.html";
+				}else{
+					window.location.href = "views/modules/admin";
+				}
+			})
+			document.getElementById('loadingGif').hidden = true;
 		});// Fin promesa signIn
     }else{
         alert("Asegurate de llenar correctamente los campos");

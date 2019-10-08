@@ -82,6 +82,7 @@ footer{
     <input  type="email" name="email" id="email" placeholder="Correo Electronico" required>
 
     <input  type="text" name="telefono" id="cellphone" placeholder="Telefono" required>
+    <input  type="text" name="telefono" id="NDUI" placeholder="N° de DUI" required>
     <input  type="password" name="passwd" id="passwd" placeholder="Contraseña" required>
     <input  type="password" name="passwdConf" id="passwdConf" placeholder="Repita su Contraseña" required>
 
@@ -136,6 +137,7 @@ function regUser(){
     var birthday = document.getElementById("birthday").value;
     var email = document.getElementById("email").value;
     var cellphone = document.getElementById("cellphone").value;
+    var nDIU = document.getElementById("nDUI").value;
 
     if(document.getElementById('policyTerms').checked == false){
         alert("No has aceptado los termino y condiciones de uso");
@@ -156,7 +158,8 @@ function regUser(){
                 lastname: lastname,
                 birthday: birthday,
                 cellphone: cellphone,
-                utype: 0
+                utype: 0,
+                dui: nDUI
             }).then(function(success){
                 var data = {uid: userSession.uid, uname: name};
                 window.location.href = "index.html";

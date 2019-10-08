@@ -2,11 +2,64 @@
 <div class="card mb-3">
     <div class="card-header">
     <i class="fas fa-table"></i>
-    Registro de Clientes</div>
+    Registro de Clientes
+    <span class="btn btn-secondary mr-2" onclick="loadUserRegs()">Actualizar</span>
+    <img src="../../../img/loading2.gif" id="loadingGif" class="ml-3" width="40px" height="40px" hidden>
+    <span id="statusInfo"></span>
+</div>
     <div class="card-body">
     <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered" id="tableClients" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Plan</th>
+                <th>Conexion</th>
+                <th>Cuota</th>
+                <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="tableElements"></tbody>
         </table>
     </div>
     </div>
 </div>
+
+
+<script>
+    window.onload = loadUserRegs();
+    var serviceActive = null;
+
+    function loadUserRegs(){
+        document.getElementById('loadingGif').hidden = false;
+        $('#statusInfo').html('Obteniendo Lista de Clientes...');
+        var ref = firebase.database().ref('activeServices');
+        ref.once('value', function(data) {
+            //El rellenado o el manejo de datos, debe de hacerse aqui, ya que esto es cuando ya se optiene la informacion.
+            var dataService = JSON.parse(JSON.stringify(data));
+            //console.log(data.val().service);
+            var elements = '';
+
+            forEach(function(row) {
+                console.log(row);
+            });
+
+            //console.log(JSON.stringify(dataService));
+            //console.log(dataService);
+            for(i=0; i<dataService.length; i++){
+                elements += '<tr>'+
+                '<td>'+dataService.clientName+'</td>'+
+                '<td>'+dataService.clienPhone+'</td>'+
+                '<td>'+dataService.service+'</td>'+
+                '<td>'+dataService.connecType+'</td>'+
+                '<td>'+dataService.priceToPay+'</td>'+
+                '<td>'+dataService.status+'</td>'+
+                '</tr>';
+            }
+            $('#tableElements').html(elements);
+            $('#statusInfo').html('');
+            document.getElementById('loadingGif').hidden = true;
+        });
+    }
+</script>
