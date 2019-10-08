@@ -1,4 +1,4 @@
-<head>     
+<<head>     
 	<title>Nuevo Regitro</title>
 </head> 
 
@@ -24,7 +24,7 @@ background:#34495e;
     color: white;
 }
 
-.box input[type = "text"],.box input[type = "password"], .box input[type = "email"], .box input[type = "date"]{
+.box input[type = "number"],.box input[type = "date"]{
 	border:0;
 	background:none;
 	display:block;
@@ -68,43 +68,26 @@ button:hover{
 footer{
 	color: white;
 }
-
 </style>
 <!---div class="hs-item set-bg" data-setbg="img/bg.jpg"></div--->
+<center> 
 <div class="row hs-item set-bg" data-setbg="img/bg.jpg" >
      <div class="box col-10 col-lg-4" id="formRegister" style="width: 25rem;">
-    <h1>Iniciar Sesión</h1>
-
-    <input  type="text" name="name" id="name" placeholder="Nombre" required>
-    <input  type="text" name="lastname" id="lastname" placeholder="Apellido" required>
-
-    <input  type="date" name="birthday" id="birthday" required>
-    <input  type="email" name="email" id="email" placeholder="Correo Electronico" required>
-
-    <input  type="text" name="telefono" id="cellphone" placeholder="Telefono" required>
-    <input  type="text" name="telefono" id="NDUI" placeholder="N° de DUI" required>
-    <input  type="password" name="passwd" id="passwd" placeholder="Contraseña" required>
-    <input  type="password" name="passwdConf" id="passwdConf" placeholder="Repita su Contraseña" required>
-
-    
+    <h1>Realizar pago</h1>
+    <input  type="number" name="tarjeta" id="tarjeta" placeholder="Numero de tarjeta" required>
+    <input  type="number" name="cvc" id="cvc" placeholder="CVC" required>
+    <label>Expira</label>
+    <input  type="number" name="mm" id="mm" placeholder="MM"required><P style="color: white">/</P><input  type="number" name="yy" id="yy" placeholder="YY"required>
     <input type="checkbox" id="policyTerms" id="termsPolicy" name="policyTerms">
     <label for="policyTerms">Acepto los Terminos y Condiciones de Uso</label><br>
-    
-    
-    
-    <button onclick="regUser()">Registrar</button>
+    <button onclick="canpago()">Cancelar Pago</button>
     <footer>
-       <h6> &copy; Derechos reservados.</h6>  
+       <h2> &copy; Derechos reservados.</h2>  
     </footer>
 </div>
 </div>
-
-<div class="toast">
-  <div class="toast-header"></div>
-  <div class="toast-body"></div>
-</div>
-
- 
+</center>
+<!---/////////////////////////////////--->
 <script>
 //ValidarFormulario
 
@@ -128,17 +111,12 @@ footer{
     }
 }*/
 
-function regUser(){
-    var email = document.getElementById("email").value;
-    var passwd = document.getElementById("passwd").value;
-
-    var name = document.getElementById("name").value;
-    var lastname = document.getElementById("lastname").value;
-    var birthday = document.getElementById("birthday").value;
-    var email = document.getElementById("email").value;
-    var cellphone = document.getElementById("cellphone").value;
-    var nDIU = document.getElementById("nDUI").value;
-
+function canpago(){
+    var nuntarjeta = document.getElementById("tarjeta").value;
+    var cvc = document.getElementById("cvc").value;
+    var mm = document.getElementById("mm").value;
+    var yy = document.getElementById("yy").value;
+    
     if(document.getElementById('policyTerms').checked == false){
         alert("No has aceptado los termino y condiciones de uso");
         return;
@@ -158,8 +136,7 @@ function regUser(){
                 lastname: lastname,
                 birthday: birthday,
                 cellphone: cellphone,
-                utype: 0,
-                dui: nDUI
+                utype: 0
             }).then(function(success){
                 var data = {uid: userSession.uid, uname: name};
                 window.location.href = "index.html";
