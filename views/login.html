@@ -101,16 +101,26 @@ footer{
 			alert(error.message);
 			document.getElementById('loadingGif').hidden = true;
 		}).then(function(success){
+
+			$('#statusInfo').html("Validando Usuario <br> Por Favor Espere...");
 			var loggedData = firebase.auth().currentUser;
+
 			firebase.database().ref('users').orderByChild('uid').equalTo(loggedData.uid).on('value', 
 			function(userData){
-				if(userData.utype == 0){
-					window.location.href = "index.html";
-				}else{
-					window.location.href = "views/modules/admin";
-				}
+				//console.log(userData.name);
+				//var datos = {uname: userData.name, userType: userData.utype, userID: userData.uid};
+				//$.post('scripts/onLogin.php', datos, function(r){
+				//	document.getElementById('loadingGif').hidden = true;
+				//	console.log('respuesta del onlogin' +r);
+				//	if(r){
+						if(userData.utype == 0){
+							window.location.href = "index.html";
+						}else{
+							window.location.href = "views/modules/admin";
+						}
+					//}
+				//});
 			})
-			document.getElementById('loadingGif').hidden = true;
 		});// Fin promesa signIn
     }else{
         alert("Asegurate de llenar correctamente los campos");

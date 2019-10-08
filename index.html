@@ -62,20 +62,21 @@
   });
   window.onload = function(){
     usession = firebase.auth().currentUser;
-    $('#LaNavBar').load("views/modules/navbar.html");
+    
   }
 
   function initPage(){
+    
     if(firebase.auth().currentUser != null){
       alert("hay algo");
-      $('#MainContainer').load("views/inicio.html");
     }
     $('#MainContainer').load('views/inicio.html');
+    $('#LaNavBar').load("views/modules/navbar.html");
   }
   function verifySession(){
-
-    console.log(firebase.auth().currentUser);
+    usession = JSON.parse(JSON.stringify(firebase.auth().currentUser));
     console.log(usession);
+    
     /*var data = firebase.auth().currentUser;
     console.log(data.email);
 			var ref = firebase.database().ref("users");
