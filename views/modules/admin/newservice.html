@@ -102,7 +102,7 @@
         if(!$(button).hasClass('disabled')){
             var detalle = new Array();
 
-            if($('#fiberConfig').attr('checked')){
+            if(document.getElementById('fiberConfig').checked){
                 detalle[0] = 'Fibra Optica';
                 detalle[1] = (parseFloat(service.price) + parseFloat(service.optFiber));              
             }else{
