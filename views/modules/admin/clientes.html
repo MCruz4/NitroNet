@@ -13,11 +13,13 @@
             <thead>
                 <tr>
                 <th>Nombre</th>
+                <th>N° DUI</th>
                 <th>Telefono</th>
                 <th>Plan</th>
                 <th>Conexion</th>
                 <th>Cuota</th>
                 <th>Estado</th>
+                <th>Fecha de Contrato</th>
                 </tr>
             </thead>
             <tbody id="tableElements"></tbody>
@@ -37,29 +39,33 @@
         var ref = firebase.database().ref('activeServices');
         ref.once('value', function(data) {
             //El rellenado o el manejo de datos, debe de hacerse aqui, ya que esto es cuando ya se optiene la informacion.
-            var dataService = JSON.parse(JSON.stringify(data));
-            //console.log(data.val().service);
             var elements = '';
-
-            forEach(function(row) {
-                console.log(row);
-            });
-
-            //console.log(JSON.stringify(dataService));
-            //console.log(dataService);
-            for(i=0; i<dataService.length; i++){
+            data.forEach(function(row) {
+                var dataService = (JSON.parse(JSON.stringify(row)));
                 elements += '<tr>'+
                 '<td>'+dataService.clientName+'</td>'+
-                '<td>'+dataService.clienPhone+'</td>'+
+                '<td>'+dataService.clientDUI+'</td>'+
+                '<td>'+dataService.clientPhone+'</td>'+
                 '<td>'+dataService.service+'</td>'+
-                '<td>'+dataService.connecType+'</td>'+
-                '<td>'+dataService.priceToPay+'</td>'+
+                '<td>'+dataService.connectType+'</td>'+
+                '<td>$'+dataService.priceToPay+'</td>'+
                 '<td>'+dataService.status+'</td>'+
+                '<td>'+dataService.dateContrate+
+                '<button class="btn btn-danger offset-6" onclick="removeClientService(\''+row.key+'\')"><b>X</b></button></td>'+
                 '</tr>';
-            }
+            });
+            
             $('#tableElements').html(elements);
             $('#statusInfo').html('');
             document.getElementById('loadingGif').hidden = true;
+        });
+    }
+
+    function removeClientService(key){
+        document.getElementById('loadingGif').hidden = false;
+        $('#statusInfo').html('Removiendo Cliente...');
+        firebase.database().ref('users/'+key).remove().then(function(){
+            loadUserRegs();
         });
     }
 </script>
