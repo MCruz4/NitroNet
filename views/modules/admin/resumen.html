@@ -86,22 +86,28 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>Nombre</th>
-                    <th>Dirección</th>
+                    <th>Cliente</th>
+                    <th>DUI</th>
+                    <th>Telefono</th>
                     <th>Servicio</th>
-                    <th>Teléfono</th>
-                    <th>Renovacion</th>
-                    <th>Pago</th>
+                    <th>Conexión</th>
+                    <th>Cuota</th>
+                    <th>Estado</th>
+                    <th>Ultimo Pago</th>
+                    <th>Direccion</th>
                   </tr>
                 </thead>
                 <tfoot>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Dirección</th>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>DUI</th>
+                    <th>Telefono</th>
                     <th>Servicio</th>
-                    <th>Teléfono</th>
-                    <th>Renovacion</th>
-                    <th>Pago</th>
+                    <th>Conexión</th>
+                    <th>Cuota</th>
+                    <th>Estado</th>
+                    <th>Ultimo Pago</th>
+                    <th>Direccion</th>
                   </tr>
                 </tfoot>
                 <tbody id="CuerpoTablaResumen">
@@ -135,6 +141,9 @@
         var elements = '';
         data.forEach(function(row) {
             var dataService = (JSON.parse(JSON.stringify(row)));
+
+          //Comprueba si la fecha actual es mayor a la fe
+          if(latePayment(dataService.lastPayment)){
             elements += '<tr>'+
             '<td>'+dataService.clientName+'</td>'+
             '<td>'+dataService.clientDUI+'</td>'+
@@ -143,8 +152,10 @@
             '<td>'+dataService.connectType+'</td>'+
             '<td>$'+dataService.priceToPay+'</td>'+
             '<td>'+dataService.status+'</td>'+
-            '<td>'+dataService.dateContrate+'</td>'+
+            '<td>'+dataService.lastPayment+'</td>'+
+            '<td>'+dataService.ServiceAddress+'</td>'+
             '</tr>';
+          }
         });
         
         $('#tableElements').html(elements);
@@ -152,5 +163,21 @@
         document.getElementById('loadingGif').hidden = true;
     });
   }
+
+  function latePayment(date){
+    date = date.split('-');
+    //Dividir la onda esa y luego convertirla
+    var lastPayment = new Date(date[0], date[1], date[2]);
+    var dateNow = new Date().dateNow;
+
+    //Obtener la diferencia de dias y comparar
+      if (dateNow.diff(lastPayment, 'days') > 30){
+        return true;
+      }else{
+        return false;
+      }
+      
+  }
+
 </script>
 

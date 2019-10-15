@@ -104,7 +104,7 @@ footer{
 
 			$('#statusInfo').html("Validando Usuario <br> Por Favor Espere...");
 			var loggedData = firebase.auth().currentUser;
-
+			setTimeout(() => {}, 300);
 			firebase.database().ref('users').orderByChild('uid').equalTo(loggedData.uid).on('value', 
 			function(userData){
 				//console.log(userData.name);
@@ -113,11 +113,21 @@ footer{
 				//	document.getElementById('loadingGif').hidden = true;
 				//	console.log('respuesta del onlogin' +r);
 				//	if(r){
+					userData.forEach(function(element) {
+						console.log(element);
+					});
+					var data = JSON.parse(JSON.stringify(userData));
+					setTimeout(() => {}, 300);
+					console.log(userData.uid);
+
 						if(userData.utype == 0){
-							window.location.href = "index.html";
+							//window.location.href = "index.html";
+							
 						}else{
-							window.location.href = "views/modules/admin";
+							//window.location.href = "views/modules/admin";
 						}
+						document.getElementById('loadingGif').hidden = true;
+						$('#statusInfo').html("");
 					//}
 				//});
 			})

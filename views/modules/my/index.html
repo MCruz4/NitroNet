@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <style>
+    .btn-xs {
+      padding: .25rem .4rem;
+      font-size: .875rem;
+      line-height: .5;
+      border-radius: .2rem;
+    }
+    </style>
+
+  <title>NitroNet - Mi Perfil</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <!--nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#"><img src="../../../img/NitroNet.png" width="35%"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav-->
+
+  <!-- Conteinido de la pagina -->
+  <div class="w-100 p-2"></div>
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Columna Principal -->
+      <div class="col-lg-8">
+        <h1 class="mt-4" id="msjWelcome">¡Bienvenido!</h1>
+        <hr>
+        <h4 class="text-center">Mis Servicios</h4>
+        <hr>
+
+        <!--Nueva Grid-->
+        <div class="row">
+          <div class="col-6">
+              <div class="card my-4">
+              <h5 class="card-header">Mensajes</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <p id="infoMensaje">Mensajes Nuevos: <b>Ninguno</b> <br>
+                      Total de mensajes: 2</p>
+                      <a href="messages.html" class="btn btn-primary col-6 offset-3">Ver Mensajes</a>
+                  </div>
+                </div>
+              </div>
+            </div> <!---Fin de la card--->
+          </div> <!--fin de la columna1 de 6 espacios-->
+
+          <div class="col-6">
+              <div class="card my-4">
+                  <h5 class="card-header">Mensajes</h5>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12">
+                        <p id="infoMensaje">Mensajes Nuevos: <b>Ninguno</b> <br>
+                          Total de mensajes: 2</p>
+                          <a href="messages.html" class="btn btn-primary col-6 offset-3">Ver Mensajes</a>
+                      </div>
+                    </div>
+                  </div>
+                </div> <!---Fin de la card--->
+          </div>
+
+        </div> <!---Find e la row de la nuevaGrid-->
+        </div> <!---Fin Columna Principal de 8 espacios-->
+
+      <!-- ----------------------- Panel lateral ------------------------------>
+      <div class="col-md-4">
+
+        <!-- Perfil Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Mi Perfil</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4 offset-2">
+                  <img src="../../../img/NitroNet.png">
+                  
+              </div>
+            </div> <!----Fin Row1-->
+            <div class="row">
+              <div class="col-12 text-center">
+                <h5 class="align-center"><b>Nombre Cliente</b></h5>
+                <div class="btn-groups">
+                  <button type="button" class="btn-secondary btn-xs" onclick="loggout()">Salir</button>
+                </div>
+              </div>
+            </div> <!-- Fin de la Row2--->
+            <div class="row">
+              <div class="col-12">
+                  <p id="userInfo">
+                    <b>Dirección:</b> San Miguel, El Salvador <br>
+                    <b>Telefono: </b> 7890-9010
+                  </p>
+              </div>
+            </div><!--Fin de la Row3-->
+          </div> <!----CardBody Mi Perfil-->
+        </div><!--Fin de la primera card(MiPerfil)--->
+
+        <!-- Mensjes -->
+        <div class="card my-4">
+          <h5 class="card-header">Mensajes</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <p id="infoMensaje">Mensajes Nuevos: <b>Ninguno</b> <br>
+                  Total de mensajes: 2</p>
+                  <a href="messages.html" class="btn btn-primary col-6 offset-3">Ver Mensajes</a>
+              </div>
+            </div>
+          </div>
+        </div> <!--Find e la card de mensajes-->
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Método de Pago</h5>
+          <div class="card-body">
+            <p id="infoPago"><b>Sin Configurar</b></p>
+            <button class="btn btn-primary col-4 offset-4">Editar</button> <!--Abrir Modal Auqi-->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
