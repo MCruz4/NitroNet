@@ -65,9 +65,13 @@
         <hr>
         <h4 class="text-center">Mis Servicios</h4>
         <hr>
+          <img src="../../../img/loading2.gif" id="loadingGif" width="40px" height="40px" hidden>
+          <span id="statusInfo"></span>
 
         <!--Nueva Grid-->
         <div class="row">
+            
+
           <div class="col-6">
               <div class="card my-4">
               <h5 class="card-header">Mensajes</h5>
@@ -167,14 +171,112 @@
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+      <p class="m-0 text-center text-white">Copyright &copy; NitroNet 2019</p>
     </div>
     <!-- /.container -->
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../js/jquery-3.4.1.min.js"></script>
+  <script src="../../../js/bootstrap.bundle.min.js"></script>
+
+
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="../../../js/firebase-6.6.1.js"></script>
+<script src="../../../js/firebaseui-3.5.2.js"></script>
+
+<script>
+  var session = null;
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAFfyQdO6HasELT3ywjoI1BxWqSqQMYXis",
+    authDomain: "nitronet-21f41.firebaseapp.com",
+    databaseURL: "https://nitronet-21f41.firebaseio.com",
+    projectId: "nitronet-21f41",
+    storageBucket: "nitronet-21f41.appspot.com",
+    messagingSenderId: "353411586533",
+    appId: "1:353411586533:web:b5cf3f32690a8ca2d2b70c"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <script>
+    window.onload = getDataSession();
+
+  async function getDataSession(){
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log(user);
+      } else {
+        console.log("No hay nada");
+      }
+    });
+  }
+
+  function loadActiveServices(){
+    document.getElementById('detailLoadGif').hidden = false;
+    $('#statusDetail').html('Cargando...');
+    var ref = firebase.database().ref('activeServices').child(key);
+    
+    ref.on('value', function(data) {
+        //El rellenado o el manejo de datos, debe de hacerse aqui, ya que esto es cuando ya se optiene la informacion.
+      data.foreach(function(row){
+        var dataService = JSON.parse(JSON.stringify(row));
+        var elements = '';
+        elements = '<div class="col-6">'+
+              '<div class="card my-4">'+
+              '<h5 class="card-header">'+row.service+' '+row.connectType+'</h5>'+
+              '<div class="card-body">'+
+                '<div class="row">'+
+                  '<div class="col-12">'+
+                    '<p>Cuota: </b> '+ row.priceToPay+'</p>'+
+                    '<p>Contratado: </b> '+ row.priceToPay+'</p>'+
+                    '<p>Ultimo pago: </b> '+ row.priceToPay+'</p>'+
+                      '<button type="button" href="messages.html" onclick="showServiceDetail()"'+
+                      'class="btn btn-primary col-6 offset-3">Ver Mensajes</a>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+            '</div> <!---Fin de la card--->'+
+          '</div> <!--Fin de la columna-->';
+
+
+
+
+
+            elements += 
+            '<h4><b>Detalles del Cliente</b></h4>'+
+            '<p><b>Nombre del Cliente:</b> '+dataService.clientName+'</p>'+
+            '<p><b>N° de DUI del Cliente:</b> '+dataService.clientDUI+'</p>'+
+            '<p><b>Telefono:</b> '+dataService.clientPhone+'</p>'+
+            '<p><b>Fecha de Nacimiento:</b> '+dataService.clientBirthday+'</p>'+
+            '<p><b>Dirección del Cliente:</b> '+dataService.clientAddress+'</p>'+
+            '<hr>'+
+            '<h4><b>Detalles del Servicio</b></h4>'+
+            '<p><b>Fecha de Contratación:</b> '+dataService.dateContrate+'</p>'+
+            '<p><b>Servicio:</b> '+dataService.service+'</p>'+
+            '<p><b>Conexión:</b> '+dataService.connectType+'</p>'+
+            '<p><b>Dirección del Servicio:</b> '+dataService.serviceAddress+'</p>'+
+            '<p><b>Cuota:</b> '+dataService.priceToPay+'</p>';
+            serviceIsActive = dataService.status;
+
+            $('#serviceStatus').html('<p id="stat"><b>Estado: </b>'+serviceIsActive+'</p>'+
+            '<button onclick="statuSwitch()" class="btn btn-caution">Cambiar</button>'+
+            '<img id="imgSwitchStat" width="15px">');
+        
+        
+        }); //Fin del Foreach
+        $('#modal-body').html(elements);
+        document.getElementById('detailLoadGif').hidden = true;
+        $('#statusDetail').html('');
+      });//Fin de la obtencion de datos.
+
+        
+  }
+
+</script>
 
 </body>
 

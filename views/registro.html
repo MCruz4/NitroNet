@@ -148,31 +148,26 @@ function regUser(){
             alert("Las contraseñas no coinciden");
             return;
         }
-        console.log("Registrando usuario");
+        console.log("Creando usuario");
         firebase.auth().createUserWithEmailAndPassword(email, passwd).then(function(success){
-            var userSession = firebase.auth().currentUser;
-            console.log(userSession.email);
-            firebase.database().ref('users').push({
-                uid: userSession.uid,
-                name: name,
-                lastname: lastname,
-                birthday: birthday,
-                cellphone: cellphone,
-                utype: 0,
-                dui: nDUI
-            }).then(function(success){
-                var data = {uid: userSession.uid, uname: name};
-                window.location.href = "index.html";
-            }); //Fin de la promesa del push
-            
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    firebase.database().ref('users/'+user.uid).set({
+                        name: name,
+                        lastname: lastname,
+                        birthday: birthday,
+                        cellphone: cellphone,
+                        utype: 0,
+                        dui: nDUI
+                    }).then(function(success){
+                    window.location.href = "views/modules/my";
+                }); //Fin de la promesa del push
+            }// fin if(user)
+            }); //Fin del state Change
         }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert(errorMessage);
-            // ...
-        });
-        
+            alert(error.message);
+        }); //Fin de crear usuario y errores de este (ambos)
+            
     }else{
         alert("Asegurate de llenar correctamente los campos");
     }

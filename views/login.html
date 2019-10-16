@@ -1,6 +1,6 @@
 
 <head>     
-	<title>Iniciar Sesion</title>
+	<title>Registrarse</title>
 </head> 
 <style>
 body{
@@ -93,7 +93,7 @@ footer{
     var email = document.getElementById("email").value;
     var passwd = document.getElementById("passwd").value;
     if(email != "" && passwd !=""){
-        $('#statusInfo').html("Consultando al servidor <br> Por Favor Espere...");
+        $('#statusInfo').html("Conectando con el servidor <br> Por Favor Espere...");
 		document.getElementById('loadingGif').hidden = false;
 		var data;
             
@@ -103,34 +103,22 @@ footer{
 		}).then(function(success){
 
 			$('#statusInfo').html("Validando Usuario <br> Por Favor Espere...");
-			var loggedData = firebase.auth().currentUser;
-			setTimeout(() => {}, 300);
-			firebase.database().ref('users').orderByChild('uid').equalTo(loggedData.uid).on('value', 
-			function(userData){
-				//console.log(userData.name);
-				//var datos = {uname: userData.name, userType: userData.utype, userID: userData.uid};
-				//$.post('scripts/onLogin.php', datos, function(r){
-				//	document.getElementById('loadingGif').hidden = true;
-				//	console.log('respuesta del onlogin' +r);
-				//	if(r){
-					userData.forEach(function(element) {
-						console.log(element);
-					});
-					var data = JSON.parse(JSON.stringify(userData));
-					setTimeout(() => {}, 300);
-					console.log(userData.uid);
-
-						if(userData.utype == 0){
-							//window.location.href = "index.html";
-							
-						}else{
-							//window.location.href = "views/modules/admin";
-						}
-						document.getElementById('loadingGif').hidden = true;
-						$('#statusInfo').html("");
-					//}
-				//});
-			})
+			//Detectar el usuario Valido
+			firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				//Consultar la informacion del usuario
+				var ref = firebase.database().ref('users');
+				ref.child(user.uid).child('utype').once('value', function(data){
+					if(data.val() == 0){
+						window.location.href = 'views/modules/my';
+					}else{
+						window.location.href = 'views/modules/admin';
+					}
+				});
+			} else {
+				console.log("No hay nada");
+			}
+			}); //fin de onAuthStateChanged()
 		});// Fin promesa signIn
     }else{
         alert("Asegurate de llenar correctamente los campos");
