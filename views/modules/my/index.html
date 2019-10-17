@@ -65,43 +65,11 @@
         <hr>
         <h4 class="text-center">Mis Servicios</h4>
         <hr>
-          <img src="../../../img/loading2.gif" id="loadingGif" width="40px" height="40px" hidden>
+          <img src="../../../img/loading2.gif" id="loadingGif" width="40px" height="40px">
           <span id="statusInfo"></span>
 
-        <!--Nueva Grid-->
-        <div class="row">
-            
-
-          <div class="col-6">
-              <div class="card my-4">
-              <h5 class="card-header">Mensajes</h5>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-12">
-                    <p id="infoMensaje">Mensajes Nuevos: <b>Ninguno</b> <br>
-                      Total de mensajes: 2</p>
-                      <a href="messages.html" class="btn btn-primary col-6 offset-3">Ver Mensajes</a>
-                  </div>
-                </div>
-              </div>
-            </div> <!---Fin de la card--->
-          </div> <!--fin de la columna1 de 6 espacios-->
-
-          <div class="col-6">
-              <div class="card my-4">
-                  <h5 class="card-header">Mensajes</h5>
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-12">
-                        <p id="infoMensaje">Mensajes Nuevos: <b>Ninguno</b> <br>
-                          Total de mensajes: 2</p>
-                          <a href="messages.html" class="btn btn-primary col-6 offset-3">Ver Mensajes</a>
-                      </div>
-                    </div>
-                  </div>
-                </div> <!---Fin de la card--->
-          </div>
-
+        <!-------------------------- Nueva Grid ------------------------->
+        <div class="row" id="serviceList">
         </div> <!---Find e la row de la nuevaGrid-->
         </div> <!---Fin Columna Principal de 8 espacios-->
 
@@ -120,7 +88,7 @@
             </div> <!----Fin Row1-->
             <div class="row">
               <div class="col-12 text-center">
-                <h5 class="align-center"><b>Nombre Cliente</b></h5>
+                <h5 class="align-center"><b id="clientName"></b></h5>
                 <div class="btn-groups">
                   <button type="button" class="btn-secondary btn-xs" onclick="loggout()">Salir</button>
                 </div>
@@ -128,10 +96,7 @@
             </div> <!-- Fin de la Row2--->
             <div class="row">
               <div class="col-12">
-                  <p id="userInfo">
-                    <b>Dirección:</b> San Miguel, El Salvador <br>
-                    <b>Telefono: </b> 7890-9010
-                  </p>
+                  <p id="userInfo"></p>
               </div>
             </div><!--Fin de la Row3-->
           </div> <!----CardBody Mi Perfil-->
@@ -203,9 +168,9 @@
   </script>
 
   <script>
-    window.onload = getDataSession();
+    window.onload = initInfo();
 
-  async function getDataSession(){
+  function getDataSession(){
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         console.log(user);
@@ -215,65 +180,80 @@
     });
   }
 
-  function loadActiveServices(){
-    document.getElementById('detailLoadGif').hidden = false;
-    $('#statusDetail').html('Cargando...');
-    var ref = firebase.database().ref('activeServices').child(key);
-    
-    ref.on('value', function(data) {
-        //El rellenado o el manejo de datos, debe de hacerse aqui, ya que esto es cuando ya se optiene la informacion.
-      data.foreach(function(row){
-        var dataService = JSON.parse(JSON.stringify(row));
-        var elements = '';
-        elements = '<div class="col-6">'+
-              '<div class="card my-4">'+
-              '<h5 class="card-header">'+row.service+' '+row.connectType+'</h5>'+
-              '<div class="card-body">'+
-                '<div class="row">'+
-                  '<div class="col-12">'+
-                    '<p>Cuota: </b> '+ row.priceToPay+'</p>'+
-                    '<p>Contratado: </b> '+ row.priceToPay+'</p>'+
-                    '<p>Ultimo pago: </b> '+ row.priceToPay+'</p>'+
-                      '<button type="button" href="messages.html" onclick="showServiceDetail()"'+
-                      'class="btn btn-primary col-6 offset-3">Ver Mensajes</a>'+
+  function initInfo(){
+    document.getElementById('loadingGif').hidden = false;
+      $('#statusInfo').html('Cargando Información de Usuario...');
+    firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				//Consultar la informacion del usuario
+				var ref = firebase.database().ref('users');
+        //Cargar informacion del usuario
+				ref.child(user.uid).once('value', function(result){
+          var udata = JSON.parse(JSON.stringify(result));
+          console.log(udata);
+					$('#clientName').html(udata.clientName);
+          $('#userInfo').html('<b>Dirección:</b> '+udata.clientAddress +
+            '<br><b>Telefono: </b> '+udata.clientPhone+'<br>'+
+            '<br><b>N° DUI: </b> '+udata.clientDUI+'<br>');
+
+          //-------------------- Cargar servicios contratados --------------------//
+          var refServ = firebase.database().ref('activeServices');
+          $('#statusInfo').html('Obteniendo Servicios Contratados...');
+          refServ.child(udata.clientDUI).once('value', function(dataser){
+
+            dataser.foreach(function(row){
+            var dataService = JSON.parse(JSON.stringify(row));
+            var elements = '';
+            elements = '<div class="col-6">'+
+                  '<div class="card my-4">'+
+                  '<h5 class="card-header">'+row.service+' '+row.connectType+'</h5>'+
+                  '<div class="card-body">'+
+                    '<div class="row">'+
+                      '<div class="col-12">'+
+                        '<p>Cuota: </b> '+ row.priceToPay+'</p>'+
+                        '<p>Contratado: </b> '+ row.priceToPay+'</p>'+
+                        '<p>Ultimo pago: </b> '+ row.priceToPay+'</p>'+
+                          '<button type="button" href="messages.html" onclick="showServiceDetail()"'+
+                          'class="btn btn-primary col-6 offset-3">Ver Mensajes</a>'+
+                      '</div>'+
+                    '</div>'+
                   '</div>'+
-                '</div>'+
-              '</div>'+
-            '</div> <!---Fin de la card--->'+
-          '</div> <!--Fin de la columna-->';
+                '</div> <!---Fin de la card--->'+
+              '</div> <!--Fin de la columna-->';
+            }); //Fin del Foreach
+            $('#serviceList').html(elements);
+            document.getElementById('loadingGif').hidden = true;
+            $('#statusInfo').html('');
 
+          });//Fin Cargar Servicios
 
+				});// Fin obtener Informacion del Usuario
+			} else {
+				console.log("No hay nada");
+			}
+			}); //fin de onAuthStateChanged()
+  }// Fin loadActiveServices
 
+  function showServiceDetail(){
+    elements += 
+      '<h4><b>Detalles del Cliente</b></h4>'+
+      '<p><b>Nombre del Cliente:</b> '+dataService.clientName+'</p>'+
+      '<p><b>N° de DUI del Cliente:</b> '+dataService.clientDUI+'</p>'+
+      '<p><b>Telefono:</b> '+dataService.clientPhone+'</p>'+
+      '<p><b>Fecha de Nacimiento:</b> '+dataService.clientBirthday+'</p>'+
+      '<p><b>Dirección del Cliente:</b> '+dataService.clientAddress+'</p>'+
+      '<hr>'+
+      '<h4><b>Detalles del Servicio</b></h4>'+
+      '<p><b>Fecha de Contratación:</b> '+dataService.dateContrate+'</p>'+
+      '<p><b>Servicio:</b> '+dataService.service+'</p>'+
+      '<p><b>Conexión:</b> '+dataService.connectType+'</p>'+
+      '<p><b>Dirección del Servicio:</b> '+dataService.serviceAddress+'</p>'+
+      '<p><b>Cuota:</b> '+dataService.priceToPay+'</p>';
+      serviceIsActive = dataService.status;
 
-
-            elements += 
-            '<h4><b>Detalles del Cliente</b></h4>'+
-            '<p><b>Nombre del Cliente:</b> '+dataService.clientName+'</p>'+
-            '<p><b>N° de DUI del Cliente:</b> '+dataService.clientDUI+'</p>'+
-            '<p><b>Telefono:</b> '+dataService.clientPhone+'</p>'+
-            '<p><b>Fecha de Nacimiento:</b> '+dataService.clientBirthday+'</p>'+
-            '<p><b>Dirección del Cliente:</b> '+dataService.clientAddress+'</p>'+
-            '<hr>'+
-            '<h4><b>Detalles del Servicio</b></h4>'+
-            '<p><b>Fecha de Contratación:</b> '+dataService.dateContrate+'</p>'+
-            '<p><b>Servicio:</b> '+dataService.service+'</p>'+
-            '<p><b>Conexión:</b> '+dataService.connectType+'</p>'+
-            '<p><b>Dirección del Servicio:</b> '+dataService.serviceAddress+'</p>'+
-            '<p><b>Cuota:</b> '+dataService.priceToPay+'</p>';
-            serviceIsActive = dataService.status;
-
-            $('#serviceStatus').html('<p id="stat"><b>Estado: </b>'+serviceIsActive+'</p>'+
-            '<button onclick="statuSwitch()" class="btn btn-caution">Cambiar</button>'+
-            '<img id="imgSwitchStat" width="15px">');
-        
-        
-        }); //Fin del Foreach
-        $('#modal-body').html(elements);
-        document.getElementById('detailLoadGif').hidden = true;
-        $('#statusDetail').html('');
-      });//Fin de la obtencion de datos.
-
-        
+      $('#serviceStatus').html('<p id="stat"><b>Estado: </b>'+serviceIsActive+'</p>'+
+      '<button onclick="statuSwitch()" class="btn btn-caution">Cambiar</button>'+
+      '<img id="imgSwitchStat" width="15px">');
   }
 
 </script>

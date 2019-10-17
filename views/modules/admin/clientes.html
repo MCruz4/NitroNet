@@ -14,12 +14,9 @@
                 <tr>
                 <th>Nombre</th>
                 <th>N° DUI</th>
+                <th>Dirección</th>
                 <th>Telefono</th>
-                <th>Plan</th>
-                <th>Conexion</th>
-                <th>Cuota</th>
-                <th>Estado</th>
-                <th>Fecha de Contrato</th>
+                <th>Fecha de Nacimiento</th>
                 </tr>
             </thead>
             <tbody id="tableElements"></tbody>
@@ -36,22 +33,19 @@
     function loadUserRegs(){
         document.getElementById('loadingGif').hidden = false;
         $('#statusInfo').html('Obteniendo Lista de Clientes...');
-        var ref = firebase.database().ref('activeServices');
+        var ref = firebase.database().ref('users');
         ref.once('value', function(data) {
             //El rellenado o el manejo de datos, debe de hacerse aqui, ya que esto es cuando ya se optiene la informacion.
             var elements = '';
-            data.forEach(function(row) {
+            data.forEach(function(row){
                 var dataService = (JSON.parse(JSON.stringify(row)));
                 elements += '<tr>'+
-                '<td>'+dataService.clientName+'</td>'+
+                '<td>'+dataService.name+' '+dataService.lastname+'</td>'+
                 '<td>'+dataService.clientDUI+'</td>'+
-                '<td>'+dataService.clientPhone+'</td>'+
-                '<td>'+dataService.service+'</td>'+
-                '<td>'+dataService.connectType+'</td>'+
-                '<td>$'+dataService.priceToPay+'</td>'+
-                '<td>'+dataService.status+'</td>'+
-                '<td>'+dataService.dateContrate+
-                '<button class="btn btn-danger offset-6" onclick="removeClientService(\''+row.key+'\')"><b>X</b></button></td>'+
+                '<td>'+dataService.clientAddress+'</td>'+
+                '<td>'+dataService.cellphone+'</td>'+
+                '<td>'+dataService.birthday+'</td>'+
+                '<button class="btn btn-danger offset-6" onclick="removeClient(\''+row.key+'\')"><b>X</b></button></td>'+
                 '</tr>';
             });
             

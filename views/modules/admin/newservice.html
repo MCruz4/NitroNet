@@ -116,7 +116,6 @@
                 serviceAddress: $('#serviceAddress').val(),
                 clientBirthday: $('#clientBirthday').val(),
                 clientPhone: $('#clientPhone').val(),
-                clientDUI: $('#clientDUI').val(),
                 dateContrate: (f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear()),
                 connectType: detalle[0],
                 priceToPay: detalle[1],
@@ -135,7 +134,7 @@
             if(confirm("¿Confirma agregar este nuevo registro?")){
                 //Enviamos el DataForm
                 document.getElementById('newRegGif').hidden = false;
-                firebase.database().ref('activeServices').push(data).then(function(){
+                firebase.database().ref('activeServices/'+$('#clientDUI').val()).push(data).then(function(){
                     document.getElementById('newRegGif').src = '../../../img/ok_icon.png';
                 });
             }

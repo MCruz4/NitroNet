@@ -66,7 +66,7 @@
 
 <script>
     var serviceIsActive = '';
-    var currentKey = '';
+    var currentKey= ['', ''];
 
     window.onload = getActiveServices();
 
@@ -77,36 +77,39 @@
     ref.once('value', function(data) {
         //El rellenado o el manejo de datos, debe de hacerse aqui, ya que esto es cuando ya se optiene la informacion.
         var elements = '';
-        data.forEach(function(row) {
+        data.forEach(function(data2){
+        data2.forEach(function(row) {
             var dataService = (JSON.parse(JSON.stringify(row)));
 
           //meter todo a la tablita
             elements += '<tr>'+
             '<td>'+dataService.clientName+'</td>'+
-            '<td>'+dataService.clientDUI+'</td>'+
+            '<td>'+data2.key+'</td>'+
             '<td>'+dataService.clientPhone+'</td>'+
             '<td>'+dataService.service+'</td>'+
             '<td>$'+dataService.priceToPay+'</td>'+
             '<td>'+dataService.dateContrate+'</td>'+
             '<td>'+dataService.status+
-            '<button class="btn shadow ml-2 rounded" onclick="viewDetails(\''+row.key+
-            '\')" data-toggle="modal" data-target="#modalScroll"><i class="fa fa-eye"></i></button>  </td>'+
+            '<button class="btn shadow ml-2 rounded" onclick="viewDetails(this)" data-ukey="'+data2.key+'" data-skey="'+row.key+'"'+
+            ' data-toggle="modal" data-target="#modalScroll"><i class="fa fa-eye"></i></button>  </td>'+
             '</tr>';
         });
         
         $('#tableElements').html(elements);
         $('#statusInfo').html('');
         document.getElementById('loadingGif').hidden = true;
-    });
+        });//foreach data2
+    });//foreach data
     
   }
 
 //////------------------------------------------
-  function viewDetails(key){
-    currentKey = key; //Se guarda, por si se le cambia el estado
-    document.getElementById('detailLoadGif').hidden = false;
+  function viewDetails(object){
+    currentKey[0] = object.getAttribute('data-ukey'); //Se guarda, por si se le cambia el estado
+    currentKey[1] = object.getAttribute('data-skey');
+    //document.getElementById('detailLoadGif').hidden = false;
     $('#statusDetail').html('Cargando...');
-    var ref = firebase.database().ref('activeServices').child(key);
+    var ref = firebase.database().ref('activeServices/'+currentKey[0]).child(currentKey[1]);
     
     ref.on('value', function(data) {
         //El rellenado o el manejo de datos, debe de hacerse aqui, ya que esto es cuando ya se optiene la informacion.
@@ -115,7 +118,7 @@
             elements += 
             '<h4><b>Detalles del Cliente</b></h4>'+
             '<p><b>Nombre del Cliente:</b> '+dataService.clientName+'</p>'+
-            '<p><b>N° de DUI del Cliente:</b> '+dataService.clientDUI+'</p>'+
+            '<p><b>N° de DUI del Cliente:</b> '+currentKey[0]+'</p>'+
             '<p><b>Telefono:</b> '+dataService.clientPhone+'</p>'+
             '<p><b>Fecha de Nacimiento:</b> '+dataService.clientBirthday+'</p>'+
             '<p><b>Dirección del Cliente:</b> '+dataService.clientAddress+'</p>'+
@@ -133,7 +136,7 @@
             '<img id="imgSwitchStat" width="15px">');
         
         $('#modal-body').html(elements);
-        document.getElementById('detailLoadGif').hidden = true;
+        //document.getElementById('detailLoadGif').hidden = true;
         $('#statusDetail').html('');
     });
   }
@@ -141,23 +144,23 @@
   function statuSwitch(){
         var newState;
         if(serviceIsActive == 'Activo'){
-        newState = 'Suspendido';
+          newState = 'Suspendido';
         }else{
-            newState = 'Activo';
+          newState = 'Activo';
         }
 
-        var ref = firebase.database().ref('activeServices').child(currentKey);
+        var ref = firebase.database().ref('activeServices/'+currentKey[0]).child(currentKey[1]);
         
         ref.update({
             status: newState
         }).then(function(error){
-            console.log(error);
             if(error){
-                document.getElementById('imgSwitchStat').src += '../../../img/error_icon.png';
+              console.log(error);
+                document.getElementById('imgSwitchStat').src = '../../../img/error_icon.png';
             }else{
                 serviceIsActive = newState;
+                document.getElementById('imgSwitchStat').src = '../../../img/ok_icon.png';
                 $('#stat').html('<b>Estado: </b> '+serviceIsActive);
-                document.getElementById('imgSwitchStat').src += '../../../img/ok_icon.png';
             }
             
         });
