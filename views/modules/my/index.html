@@ -2,11 +2,8 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
 
   <style>
     .btn-xs {
@@ -24,35 +21,6 @@
 </head>
 
 <body>
-
-  <!-- Navigation -->
-  <!--nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#"><img src="../../../img/NitroNet.png" width="35%"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav-->
-
   <!-- Conteinido de la pagina -->
   <div class="w-100 p-2"></div>
   <div class="container">
@@ -152,7 +120,6 @@
 <script src="../../../js/firebaseui-3.5.2.js"></script>
 
 <script>
-  var session = null;
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyAFfyQdO6HasELT3ywjoI1BxWqSqQMYXis",
@@ -169,6 +136,7 @@
 
   <script>
     window.onload = initInfo();
+    var userData; //aqui se guardara la informacion del usuario
 
   function getDataSession(){
     firebase.auth().onAuthStateChanged(function(user) {
@@ -191,9 +159,10 @@
 				ref.child(user.uid).once('value', function(result){
           var udata = JSON.parse(JSON.stringify(result));
           console.log(udata);
-					$('#clientName').html(udata.clientName);
+					$('#clientName').html(udata.name);
           $('#userInfo').html('<b>Dirección:</b> '+udata.clientAddress +
-            '<br><b>Telefono: </b> '+udata.clientPhone+'<br>'+
+            '<br><b>Telefono: </b> '+udata.cellphone+
+            '<br><b>Email: </b> '+user.email+
             '<br><b>N° DUI: </b> '+udata.clientDUI+'<br>');
 
           //-------------------- Cargar servicios contratados --------------------//
